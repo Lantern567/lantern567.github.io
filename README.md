@@ -8,11 +8,13 @@
 
 ## 网站内容
 
-精选项目包括论文到微信公众号草稿的 AI 工作流、Obsidian 技术日报、MAPPO VRP 开源环境扩展，以及两个 AI 基础设施相关研究计算项目。支持项目筛选、详情展开、技能证据跳转和移动端导航。
+精选项目包括 Clawgym 任务与验证工程、Agent 评测环境工程、论文到微信公众号草稿的 AI 工作流、Obsidian 技术日报、MAPPO VRP 开源环境扩展，以及两个 AI 基础设施相关研究计算项目。支持项目筛选、详情展开、技能证据跳转和移动端导航。
 
 个人展示名与地点来自 GitHub 公开资料；求职方向来自用户提供的 AI 开发目标。未添加未经提供的教育经历、任职经历、邮箱或成绩指标。
 
-MAPPO VRP 标注为开源贡献，证据为 [PR #1](https://github.com/Alto-R/MAPPO_VRP/pull/1) 和 [PR #2](https://github.com/Alto-R/MAPPO_VRP/pull/2)。其余项目链接在页面中直接指向公开仓库与实现文件。内容整理日期为 2026-10-10。
+组织项目仅展示个人工程职责概述和常用技术，不包含内部源码、数据、评测指标或私有仓库地址。Clawgym 未关联到未经核实的同名公开论文、模型或开源成果。
+
+MAPPO VRP 标注为开源贡献，证据为 [PR #1](https://github.com/Alto-R/MAPPO_VRP/pull/1) 和 [PR #2](https://github.com/Alto-R/MAPPO_VRP/pull/2)。其他公开项目链接在页面中直接指向仓库与实现文件。内容整理日期为 2026-10-10。
 
 ## 修改内容
 

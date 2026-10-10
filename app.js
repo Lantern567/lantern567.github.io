@@ -1,9 +1,35 @@
 'use strict';
 
-// Project descriptions refer to public repositories; authorship and status are explicit.
+// Team projects use high-level responsibility summaries; public projects link to evidence.
 const projects = [
   {
-    id: 'paper', category: 'application', categoryLabel: 'AI 应用 / 工作流', role: '应用实践', featured: true,
+    id: 'clawgym', category: 'organization', categoryLabel: '组织项目 / Agent 数据与评测', role: '参与开发 · 后端工程', featured: true,
+    title: 'Clawgym · Agent 任务与验证工程', repoName: 'Clawgym / Team Project',
+    description: '参与 AI Agent 任务合成与评测流水线开发，围绕批次调度、并发控制、任务生命周期和异常恢复，完善执行与交付流程。',
+    tags: ['Python', 'FastAPI', 'PostgreSQL', 'SQLAlchemy', 'Docker'],
+    visual: 'clawgym',
+    details: [
+      ['项目定位', '组织内面向 AI Agent 的任务合成与评测工程实践。'],
+      ['我的参与', '参与批次调度与并发控制、临时故障退避恢复、任务取消和子任务生命周期管理，以及发布流程修复。'],
+      ['质量与交付', '参与交付校验和回归测试，将任务执行、异常处理与结果交付连接成可检查的工作流程。'],
+      ['技术与展示范围', '使用 Python、FastAPI、Pydantic、PostgreSQL、SQLAlchemy 和 Docker。此处展示个人参与模块的高层概述，内部源码与数据未公开。']
+    ]
+  },
+  {
+    id: 'evaluation', category: 'organization', categoryLabel: '组织项目 / Agent 评测运行', role: '参与开发 · 评测工程',
+    title: 'Agent 评测环境与运行工程', repoName: 'Agent Evaluation / Team Project',
+    description: '围绕 GPU 运行环境、离线依赖准备、参考实现校验和资源约束下的并行评测，参与环境准备与实验运行流程。',
+    tags: ['Python', 'Docker', 'JAX', 'GPU Environments'],
+    visual: 'evaluation',
+    details: [
+      ['我的参与', '参与 GPU 环境准备与隔离适配、离线依赖预取和修复、参考实现执行校验，以及并行评测运行脚本。'],
+      ['工程重点', '连接环境构建、依赖准备、执行检查和资源约束下的批量运行，记录运行状态并定位环境问题。'],
+      ['技术侧重', 'Python、Docker、JAX 环境、子进程与容器执行，以及文件和依赖管理。'],
+      ['展示范围', '组织项目的环境与运行工程职责概述。内部任务、评测数据和结果未公开。']
+    ]
+  },
+  {
+    id: 'paper', category: 'application', categoryLabel: 'AI 应用 / 工作流', role: '应用实践',
     title: '从论文 PDF，到公众号草稿', repoName: 'Auto_paper_for_wechat',
     description: '把文档解析、AI 解读、图文排版与素材上传串成一条工作流，将论文转为带图的微信公众号草稿。',
     tags: ['n8n Agent', 'Python', 'MinerU', 'TypeScript', 'Playwright'],
@@ -85,12 +111,14 @@ const flow = nodes => `<div class="flow">${nodes.map((node, index) => `${index ?
 
 function cover(project, index) {
   let content;
-  if (project.visual === 'paper') content = `<div class="schematic"><div class="project-logo">PDF → DRAFT</div>${flow(['论文 PDF', 'AI Agent', '图文草稿'])}<p class="flow-caption">PARSE → GENERATE → FORMAT → DRAFT</p></div>`;
+  if (project.visual === 'clawgym') content = `<div class="schematic"><div class="project-logo">Clawgym</div>${flow(['任务合成', '批次调度', '交付校验'])}<p class="flow-caption">TASKS → EXECUTION → VALIDATION</p></div>`;
+  else if (project.visual === 'evaluation') content = `<div class="schematic"><div class="project-logo">Agent / Eval</div>${flow(['环境准备', '执行校验', '并行评测'])}<p class="flow-caption">PREPARE → CHECK → RUN</p></div>`;
+  else if (project.visual === 'paper') content = `<div class="schematic"><div class="project-logo">PDF → DRAFT</div>${flow(['论文 PDF', 'AI Agent', '图文草稿'])}<p class="flow-caption">PARSE → GENERATE → FORMAT → DRAFT</p></div>`;
   else if (project.visual === 'digest') content = `<div class="schematic"><div class="project-logo">{ daily.digest }</div>${flow(['多源采集', 'Claude', 'Markdown'])}<p class="flow-caption">GITHUB / YOUTUBE / RSS → OBSIDIAN</p></div>`;
   else if (project.visual === 'token') content = `<div class="schematic"><div class="project-logo">kWh → token</div>${flow(['清洁能源', '时序匹配', '推理需求'])}<p class="flow-caption">SCENARIOS · COST · CONSTRAINTS</p></div>`;
   else if (project.visual === 'learning') content = `<div class="learning-banner"><div class="project-logo">MAPPO × VRP</div>${flow(['真实路网', '配送环境', '多智能体'])}<p class="flow-caption">OPEN-SOURCE CONTRIBUTION</p></div>`;
   else content = `<div class="schematic"><div class="project-logo">24 × 7 CFE</div>${flow(['气候需求', '容量规划', '结果验证'])}<p class="flow-caption">DATA → COMPUTE → VERIFY</p></div>`;
-  return `<div class="project-cover" aria-label="${escapeHtml(project.title)}实现链路示意"><span class="cover-label mono">WORKFLOW / SCHEMATIC</span>${content}<span class="cover-number">${String(index + 1).padStart(2, '0')} / PUBLIC CODE</span></div>`;
+  return `<div class="project-cover" aria-label="${escapeHtml(project.title)}实现链路示意"><span class="cover-label mono">WORKFLOW / SCHEMATIC</span>${content}<span class="cover-number">${String(index + 1).padStart(2, '0')} / ${project.repo ? 'PUBLIC CODE' : 'TEAM PROJECT'}</span></div>`;
 }
 
 const grid = document.getElementById('project-grid');
@@ -100,7 +128,7 @@ grid.innerHTML = projects.map((project, index) => `<article class="project${proj
   <h3 id="title-${project.id}">${escapeHtml(project.title)}</h3><p class="project-description">${escapeHtml(project.description)}</p>
   <div class="tags" aria-label="项目技术栈">${project.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}</div><div class="project-repo mono">${escapeHtml(project.repoName)}</div>
   <details><summary>项目拆解与工程证据</summary><div class="case-study"><dl>${project.details.map(([title, content]) => `<dt>${escapeHtml(title)}</dt><dd>${escapeHtml(content)}</dd>`).join('')}</dl></div></details>
-  <div class="project-links"><a href="${escapeHtml(project.repo)}" target="_blank" rel="noopener noreferrer" aria-label="查看${escapeHtml(project.title)}的代码仓库">代码仓库 ${arrow}</a><a href="${escapeHtml(project.evidence)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.evidenceLabel)} ${arrow}</a>${project.otherEvidence ? `<a href="${escapeHtml(project.otherEvidence)}" target="_blank" rel="noopener noreferrer">PR #1 ${arrow}</a>` : ''}</div></div>
+  <div class="project-links">${project.repo ? `<a href="${escapeHtml(project.repo)}" target="_blank" rel="noopener noreferrer" aria-label="查看${escapeHtml(project.title)}的代码仓库">代码仓库 ${arrow}</a>` : '<span class="private-project-note">组织项目 · 源码未公开</span>'}${project.evidence ? `<a href="${escapeHtml(project.evidence)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.evidenceLabel)} ${arrow}</a>` : ''}${project.otherEvidence ? `<a href="${escapeHtml(project.otherEvidence)}" target="_blank" rel="noopener noreferrer">PR #1 ${arrow}</a>` : ''}</div></div>
 </article>`).join('');
 
 const filterButtons = [...document.querySelectorAll('[data-filter]')];
